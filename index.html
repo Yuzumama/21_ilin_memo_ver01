@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>myMemoPad</title>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main>
+        <div class="main_background">
+            <div class="main_background_top"></div>
+            <div class="main_background_middle"> 
+                <div class="main_back">
+
+                    <!-- Title -->
+                    <div class="title">
+                        <img src="./img/font_title.jpg" class="title_style">
+                    </div>
+
+                    <!-- Current date -->
+                    <div class="date_back">
+                        <div class="memo_context">Write down today's event </div>
+                        <div class="current_date_style">
+                            <div id="current_year"></div>
+                            /
+                            <div id="current_month"></div>
+                            /
+                            <div id="current_day"></div>
+                        </div>
+                    </div>
+
+                    <!-- Text area-->
+                    <div class="text_input_back">
+                        <textarea id = "text_input">
+
+                        </textarea>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="btn_question">After writing your event, how do you feel now?</div>
+
+                    <div class="btn_back">
+                        
+                        <div id="angry_btn" class="angry_btn_style">
+                            Angry
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div id="sorrow_btn" class="sorrow_btn_style">
+                            Sad
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                        <div id="happy_btn" class="happy_btn_style">
+                            happy
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+
+                    <!-- Message & drinks -->
+                    <div id="msg_back" class="empty">
+                        <div id="msg_text" class="msg_text_style">
+                        </div>
+                        <div id="drink_back" class="drink_back_style">
+                            <img id="drink_img" class="drink_img_style">
+                            </img>
+                            <div id="drink_exp" class="drink_exp_style">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Move date -->
+                    <div class="change_date_back">
+                        <div id="back_one_month" class="back_one_month_style">
+                        <img src="./img/font_prev_month.jpg" width="80px" height="80px">
+                        </div>
+                        <div id="back_one_day" class="back_one_day_style">
+                        <img src="./img/font_prev_day.jpg" width="80px" height="80px">
+                        </div>
+                        <div class="change_date_blank_style"></div>
+                        <div id="save" class="save_btn_style"> 
+                            Save 
+                        </div>
+                        <div id="clear" class="clear_btn_style">
+                            Clear
+                        </div>
+                        <div class="change_date_blank_style"></div>
+                        <div id="forward_one_day" class="forward_one_day_style">
+                        <img src="./img/font_next_day.jpg" width="80px" height="80px">
+                        </div>
+                        <div id="forward_one_month" class="forward_one_month_style">
+                         <img src="./img/font_next_month.jpg" width="80px" height="80px">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="main_background_bottom"></div>
+        </div>
+    </main>
+
+
+
+
+    <script>
+        // Show today's date
+        let today_date = new Date();
+        let cur_year = today_date.getFullYear();
+        let cur_month = today_date.getMonth();
+        let cur_day = today_date.getDay();
+        $("#current_year").text(cur_year.toString());
+        $("#current_month").text(cur_month.toString());
+        $("#current_day").text(cur_day.toString());
+
+        let cur_mood = 0; 
+        let cur_drink = "no drink";
+
+        function resetAnimation (targetScene) {
+            // Reset animations in choose_category by remove and re-add it
+            let scene = $(targetScene);
+            let clone_scene = scene.clone(true);
+            scene.before(clone_scene);
+            $("." + scene.attr("class") + ":last").remove();
+        }
+        function showMessage() {
+
+            if(cur_mood == 1) {
+                $("#msg_text").text("Drink for Today's You");
+                $("#drink_img").css("background-image", "url('./img/angry_drink_01.jpg')");
+                $("#drink_exp").html("<h4>Chamomile tea</h4>" +
+                    "Herbal tea with a gentle fragrance resembling sweet apples<br>" +
+                    "<br>" +
+                    "It's perfect for a cup before bed as it warms the body and guides you into a peaceful sleep.<br>" +
+                    "<br>" +
+                    "Its floral language is not losing to adversity and strength within hardships.<br>" +
+                    "<br>" +
+                    "Let's take a little rest today.<br>" + 
+                    "<br>" +
+                    "Believe in yourself to overcome tomorrow's challenges.");
+            }
+            if(cur_mood == 2) {
+                $("#msg_text").text("Drink for Today's You");
+                $("#drink_img").css("background-image", "url('./img/sorrow_drink_01.jpg')");
+                $("#drink_exp").html("<h4>New York</h4> " +
+                    "Like the sunrise peeking through the towering skyscrapers of Manhattan.<br>" +
+                    "This cocktail color is vivid and beautiful, reminiscent of a bright orange hue. <br>" +
+                    "<br>" + 
+                    " It's a blend of whiskey flavors with lime and the fruity essence of grenadine, creating a perfectly balanced taste.<br>" +
+                    "<br>" + 
+                    "This cocktail is beloved in bars worldwide. <br>" +
+                    "How about trying to make it at home using American whiskey?");
+            }
+            if(cur_mood == 3){
+                $("#msg_text").text("Drink for Today's You");
+                $("#drink_img").css("background-image", "url('./img/happy_drink_01.jpg')");
+                $("#drink_exp").html("<h4>Sparkling Strawberry Cocktail </h4>" +
+                    "A sparkling wine infused with plenty of sweet strawberries.<br>" +
+                    "<br>" +
+                    "With an alcohol content of 8%, it falls into the category of medium-sweet cocktails.<br>" +
+                    "<br>" + 
+                    "Why not treat yourself to this cocktail as a reward?<br>" + 
+                    "Top it off with vanilla ice cream and decorate with sliced strawberries.");
+            }
+
+            // Play animation only when it is unshown
+            if($("#msg_back").attr("class") != "msg_back_style") {
+                $("#msg_back").attr("class", "msg_back_style");
+                resetAnimation("#msg_back");
+            }
+        }
+
+        function hideMessage() {
+
+            // Play animation only when it is shown
+            if($("#msg_back").attr("class") != "msg_back_hidden_style") {
+                $("#msg_back").attr("class", "msg_back_hidden_style");
+                resetAnimation("#msg_back");
+            }
+        }
+
+        function getCurrentDayKey() {
+            return cur_year.toString() + "/" + cur_month.toString() + "/" + cur_day.toString();
+        }
+
+        function saveToStorage() {
+            let v = $("#text_input").val();
+            
+            // Save memo
+            let memo_key = getCurrentDayKey() + "memo";
+            localStorage.setItem(memo_key, v);
+
+            // Save mood
+            let mood_key = getCurrentDayKey() + "mood";
+            localStorage.setItem(mood_key, cur_mood);
+
+            // Save drink
+            let drink_key = getCurrentDayKey() + "drink";
+            localStorage.setItem(drink_key, cur_drink);
+        }
+
+        //1. Click mood
+        $("#angry_btn").on("click", function(){
+            cur_mood = 1;
+
+            // Show choose drink window
+            showMessage();
+        });
+
+        $("#sorrow_btn").on("click", function(){
+            cur_mood = 2;
+            
+            // Show choose drink window
+            showMessage();
+        });
+
+        $("#happy_btn").on("click", function(){
+            cur_mood = 3;
+            
+            // Show choose drink window
+            showMessage();
+        });  
+
+
+        //2. Click save/clear
+        $("#save").on("click", function(){
+            let memo_key = getCurrentDayKey() + "memo";
+            let v = $("#text_input").val();
+            localStorage.setItem(memo_key, v);
+
+            // Save mood
+            let mood_key = getCurrentDayKey() + "mood";
+            localStorage.setItem(mood_key, cur_mood);
+
+            // Save drink
+            let drink_key = getCurrentDayKey() + "drink";
+            localStorage.setItem(drink_key, cur_drink);
+        });
+
+        $("#clear").on("click", function(){
+            let memo_key = getCurrentDayKey() + "memo";
+            localStorage.removeItem(memo_key);
+
+            // Save mood
+            let mood_key = getCurrentDayKey() + "mood";
+            localStorage.removeItem(mood_key);
+
+            // Save drink
+            let drink_key = getCurrentDayKey() + "drink";
+            localStorage.removeItem(drink_key);
+            
+            alert("Memo is removed");
+            
+            $("#text_input").val("");
+            cur_mood = 0;
+            cur_drink = 0;
+            hideMessage();
+        });
+
+
+
+        //3. Load storage
+        function loadFromStorage() {
+            let memo_key = getCurrentDayKey() + "memo";
+            let v = localStorage.getItem(memo_key);
+            $("#text_input").val(v);
+
+            let mood_key = getCurrentDayKey() + "mood";
+            if(localStorage.getItem(mood_key)) {
+                // Show message if current mood is no chosen
+                cur_mood = localStorage.getItem(mood_key);
+                showMessage();
+            }
+            else {
+                cur_mood = 0;
+                hideMessage();                
+            }
+        }
+
+        let memo_key = getCurrentDayKey() + "memo";
+        if(localStorage.getItem(memo_key)){
+            loadFromStorage();
+        };
+
+
+
+        // 4. Change date
+        function showCurrentDate() {
+            $("#current_year").text(cur_year.toString());
+            $("#current_month").text(cur_month.toString());
+            $("#current_day").text(cur_day.toString());
+        }
+
+        $("#back_one_month").on("click", function() {
+            cur_month = cur_month - 1;
+
+            // If goes before January
+            if(cur_month <= 0) {
+                cur_year = cur_year - 1;
+                cur_month = 12;
+            }
+            showCurrentDate();
+            loadFromStorage();
+        });
+
+        $("#back_one_day").on("click", function() {
+            cur_day = cur_day - 1;
+
+            // If goes before 1st
+            if(cur_day <= 0) {
+                cur_month = cur_month - 1;
+                cur_day = 31;
+
+                // If goes before January
+                if(cur_month <= 0) {
+                    cur_year = cur_year - 1;
+                    cur_month = 12;
+                }
+            }
+            showCurrentDate();
+            loadFromStorage();
+        });
+
+        $("#forward_one_month").on("click", function() {
+            cur_month = cur_month + 1;
+
+            // If goes beyond December
+            if(cur_month > 12) {
+                cur_year = cur_year + 1;
+                cur_month = 1;
+            }
+            showCurrentDate();
+            loadFromStorage();
+        });
+
+        $("#forward_one_day").on("click", function() {
+            cur_day = cur_day + 1;
+
+            // If goes before 31st
+            if(cur_day > 31) {
+                cur_month = cur_month + 1;
+                cur_day = 1;
+
+                // If goes beyond December
+                if(cur_month > 12) {
+                    cur_year = cur_year + 1;
+                    cur_month = 1;
+                }
+            }
+            showCurrentDate();
+            loadFromStorage();
+        });
+        
+
+
+        //ロード時に表示
+        //※こんなこともできる例
+    </script>
+</body>
+
+</html>
