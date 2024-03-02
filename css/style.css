@@ -412,7 +412,6 @@ textarea:focus {
     border: 0px;
     background-image: none;
     background-size: 250px;
-    background-repeat: no-repeat;
 }
 
 .drink_exp_style {

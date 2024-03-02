@@ -111,8 +111,8 @@
         // Show today's date
         let today_date = new Date();
         let cur_year = today_date.getFullYear();
-        let cur_month = today_date.getMonth();
-        let cur_day = today_date.getDay();
+        let cur_month = today_date.getMonth() + 1;
+        let cur_day = today_date.getDate();
         $("#current_year").text(cur_year.toString());
         $("#current_month").text(cur_month.toString());
         $("#current_day").text(cur_day.toString());
@@ -153,7 +153,7 @@
                     " It's a blend of whiskey flavors with lime and the fruity essence of grenadine, creating a perfectly balanced taste.<br>" +
                     "<br>" + 
                     "This cocktail is beloved in bars worldwide. <br>" +
-                    "How about trying to make it at home using American whiskey?");
+                    "How about trying to make it at home by using American whiskey?");
             }
             if(cur_mood == 3){
                 $("#msg_text").text("Drink for Today's You");
@@ -303,9 +303,39 @@
                 cur_year = cur_year - 1;
                 cur_month = 12;
             }
+
+            let max_day = getCurrentMonthMaxDay();
+            if(cur_day > max_day) {
+                cur_day = max_day;
+            }
+
             showCurrentDate();
             loadFromStorage();
         });
+
+        function getCurrentMonthMaxDay(){
+            if(cur_month ==1 ||
+                cur_month ==3||
+                cur_month ==5 ||
+                cur_month ==7 ||
+                cur_month ==8 ||
+                cur_month ==10 ||
+                cur_month ==12)
+            return 31;
+
+            if(cur_month ==4 ||
+                cur_month ==6||
+                cur_month ==9 ||
+                cur_month ==11)
+            return 30;
+
+            if(cur_month ==2)
+                if(cur_year % 4 == 0)
+                    return 29
+                else 
+                    return 28;
+
+        }
 
         $("#back_one_day").on("click", function() {
             cur_day = cur_day - 1;
@@ -313,7 +343,27 @@
             // If goes before 1st
             if(cur_day <= 0) {
                 cur_month = cur_month - 1;
-                cur_day = 31;
+                cur_day =getCurrentMonthMaxDay();
+                // if(cur_month ==1 ||
+                    // cur_month ==3||
+                    // cur_month ==5 ||
+                    // cur_month ==7 ||
+                    // cur_month ==8 ||
+                    // cur_month ==10 ||
+                    // cur_month ==12)
+                // cur_day = 31;
+
+                // if(cur_month ==4 ||
+                //     cur_month ==6||
+                //     cur_month ==9 ||
+                //     cur_month ==11)
+                // cur_day = 30;
+
+                // if(cur_month ==2)
+                //     if(cur_year % 4 == 0)
+                //         cur_day = 29
+                //     else 
+                //         cur_day = 28;
 
                 // If goes before January
                 if(cur_month <= 0) {
@@ -333,6 +383,12 @@
                 cur_year = cur_year + 1;
                 cur_month = 1;
             }
+
+            let max_day = getCurrentMonthMaxDay();
+            if(cur_day > max_day) {
+                cur_day = max_day;
+            }
+
             showCurrentDate();
             loadFromStorage();
         });
@@ -341,7 +397,8 @@
             cur_day = cur_day + 1;
 
             // If goes before 31st
-            if(cur_day > 31) {
+            let max_day = getCurrentMonthMaxDay();
+            if(cur_day > max_day) {
                 cur_month = cur_month + 1;
                 cur_day = 1;
 
