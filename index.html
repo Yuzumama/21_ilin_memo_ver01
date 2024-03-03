@@ -23,7 +23,7 @@
 
                     <!-- Current date -->
                     <div class="date_back">
-                        <div class="memo_context">Write down today's event </div>
+                        <div class="memo_context">Write down your today's event </div>
                         <div class="current_date_style">
                             <div id="current_year"></div>
                             /
@@ -129,42 +129,84 @@
         }
         function showMessage() {
 
+            let max_num_drinks = 2.0;
+            let drink_index = Math.floor(Math.random() * max_num_drinks);
+
             if(cur_mood == 1) {
                 $("#msg_text").text("Drink for Today's You");
-                $("#drink_img").css("background-image", "url('./img/angry_drink_01.jpg')");
-                $("#drink_exp").html("<h4>Chamomile tea</h4>" +
-                    "Herbal tea with a gentle fragrance resembling sweet apples<br>" +
-                    "<br>" +
-                    "It's perfect for a cup before bed as it warms the body and guides you into a peaceful sleep.<br>" +
-                    "<br>" +
-                    "Its floral language is not losing to adversity and strength within hardships.<br>" +
-                    "<br>" +
-                    "Let's take a little rest today.<br>" + 
-                    "<br>" +
-                    "Believe in yourself to overcome tomorrow's challenges.");
+                if(drink_index == 0) {
+                    $("#drink_img").css("background-image", "url('./img/angry_drink_01.jpg')");
+                    $("#drink_exp").html("<h4>Chamomile tea</h4>" +
+                        "Herbal tea with a gentle fragrance resembling sweet apples<br>" +
+                        "<br>" +
+                        "It's perfect for a cup before bed as it warms the body and guides you into a peaceful sleep.<br>" +
+                        "<br>" +
+                        "Its floral language is not losing to adversity and strength within hardships.<br>" +
+                        "<br>" +
+                        "Let's take a little rest today.<br>" + 
+                        "<br>" +
+                        "Believe in yourself to overcome tomorrow's challenges.");
+                }
+                if(drink_index == 1) {
+                    $("#drink_img").css("background-image", "url('./img/angry_drink_02.jpg')");
+                    $("#drink_exp").html("<h4>Chrysanthemum Tea</h4>" +
+                        "When hot water is poured, the flowers bloom beautifully, emitting a refreshing and sweet floral scent.<br>" +
+                        "<br>" +
+                        "The taste carries a subtle bitterness and sweetness, with a clean finish.<br>" +
+                        "<br>" +
+                        "For those moments, it's recommended to blend it with oolong tea or pu-erh tea for a delicious variation.<br>" +
+                        "<br>" +
+                        "If you have allergies, let's choose other drink.<br>");
+                }
             }
             if(cur_mood == 2) {
                 $("#msg_text").text("Drink for Today's You");
-                $("#drink_img").css("background-image", "url('./img/sorrow_drink_01.jpg')");
-                $("#drink_exp").html("<h4>New York</h4> " +
-                    "Like the sunrise peeking through the towering skyscrapers of Manhattan.<br>" +
-                    "This cocktail color is vivid and beautiful, reminiscent of a bright orange hue. <br>" +
-                    "<br>" + 
-                    " It's a blend of whiskey flavors with lime and the fruity essence of grenadine, creating a perfectly balanced taste.<br>" +
-                    "<br>" + 
-                    "This cocktail is beloved in bars worldwide. <br>" +
-                    "How about trying to make it at home by using American whiskey?");
+                if(drink_index == 0){
+                    $("#drink_img").css("background-image", "url('./img/sorrow_drink_01.jpg')");
+                    $("#drink_exp").html("<h4>New York</h4> " +
+                        "Like the sunrise peeking through the towering skyscrapers of Manhattan.<br>" +
+                        "This cocktail color is vivid and beautiful, reminiscent of a bright orange hue. <br>" +
+                        "<br>" + 
+                        " It's a blend of whiskey flavors with lime and the fruity essence of grenadine, creating a perfectly balanced taste.<br>" +
+                        "<br>" + 
+                        "This cocktail is beloved in bars worldwide. <br>" +
+                        "How about trying to make it at home by using American whiskey?");
+                }
+                if(drink_index == 1) {
+                    $("#drink_img").css("background-image", "url('./img/sorrow_drink_02.jpg')");
+                    $("#drink_exp").html("<h4>Plum Wine</h4>" +
+                        "Plum wine is a sweet liqueur made by steeping unripe green plums in alcohol and sugar.<br>" +
+                        "<br>" +
+                        "It carries a rich plum flavor that is both sweet and tart.<br>" +
+                        "<br>" +
+                        "Plum wine is popular in Japan, especially during the summer.<br>" +
+                        "<br>" +
+                        "It's best enjoyed in moments of solitude, sipped leisurely.<br>");
+                }
             }
             if(cur_mood == 3){
                 $("#msg_text").text("Drink for Today's You");
-                $("#drink_img").css("background-image", "url('./img/happy_drink_01.jpg')");
-                $("#drink_exp").html("<h4>Sparkling Strawberry Cocktail </h4>" +
-                    "A sparkling wine infused with plenty of sweet strawberries.<br>" +
-                    "<br>" +
-                    "With an alcohol content of 8%, it falls into the category of medium-sweet cocktails.<br>" +
-                    "<br>" + 
-                    "Why not treat yourself to this cocktail as a reward?<br>" + 
-                    "Top it off with vanilla ice cream and decorate with sliced strawberries.");
+                if(drink_index == 0) {
+                    $("#drink_img").css("background-image", "url('./img/happy_drink_01.jpg')");
+                    $("#drink_exp").html("<h4>Sparkling Strawberry Cocktail </h4>" +
+                        "A sparkling wine infused with plenty of sweet strawberries.<br>" +
+                        "<br>" +
+                        "With an alcohol content of 8%, it falls into the category of medium-sweet cocktails.<br>" +
+                        "<br>" + 
+                        "Why not treat yourself to this cocktail as a reward?<br>" + 
+                        "Top it off with vanilla ice cream and decorate with sliced strawberries.");
+                }
+                if(drink_index == 1) {
+                    $("#drink_img").css("background-image", "url('./img/happy_drink_02.jpg')");
+                    $("#drink_exp").html("<h4>Mimosa</h4>" +
+                        "The most delicious and luxurious orange juice in the world.<br>" +
+                        "<br>" +
+                        "It has a refreshing aroma and a subtle acidity, reminiscent of champagne or sparkling wine, leaving a crisp taste.<br>" +
+                        "<br>" +
+                        "The cocktail term for 'Mimosa' is 'sincerity'. <br>" +
+                        "<br>" +
+                        "Why not convey a message to your loved one with this?<br>");
+                }
             }
 
             // Play animation only when it is unshown

@@ -98,7 +98,7 @@ main {
     text-align: left;
     width: 100%;
     color: rgb(229, 181, 112);
-    font-style: italic;
+    /* font-style: italic; */
     font-size: 20px;
     font-weight: bold;
 
@@ -155,7 +155,7 @@ textarea:focus {
     text-align: left;
     width: 100%;
     color: rgb(229, 181, 112);
-    font-style: italic;
+    /* font-style: italic; */
     font-size: 20px;
     font-weight: bold;
 
